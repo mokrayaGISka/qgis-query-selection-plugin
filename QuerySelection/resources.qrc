@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/QuerySelection" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
