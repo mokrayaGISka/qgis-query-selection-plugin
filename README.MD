@@ -1,6 +1,6 @@
 # qgis-query-selection-plugin  
 An example of creating QGIS 2.18 plugin using Python  
-Using this plugin you can create a defeinition query from selected objects on different layers in qgis project. Also you can clear a defenition query.  
+Using this plugin you can create a definition query from selected objects on different layers in qgis project. Also you can clear a defenition query.  
 
 ## Video Lesson: 
 [![Demo](https://img.youtube.com/vi/CH2IttANgPo/0.jpg)](https://www.youtube.com/watch?v=CH2IttANgPo&list=PLbozJClxFQYXuIowdEYjUQRLEatzO2CqJ&index=5) 
