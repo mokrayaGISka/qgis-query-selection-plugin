@@ -10,7 +10,7 @@
 name=QuerySelection
 qgisMinimumVersion=2.0
 description=query_selection_plugin
-version=0.1
+version=0.2
 author=Flexatel Team
 email=info@flexatel.ru
 
