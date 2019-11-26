@@ -11,12 +11,12 @@ name=QuerySelection
 qgisMinimumVersion=2.0
 description=query_selection_plugin
 version=0.1
-author=Tom Sawyer/Flexatel
+author=Flexatel Team
 email=info@flexatel.ru
 
 about=Provide a brief description of the plugin and its purpose.
 
-tracker=ert
+tracker=https://github.com/mokrayaGISka/qgis-query-selection-plugin/issues
 repository=https://github.com/mokrayaGISka/qgis-query-selection-plugin
 # End of mandatory metadata
 
@@ -28,7 +28,7 @@ repository=https://github.com/mokrayaGISka/qgis-query-selection-plugin
 # Tags are comma separated with spaces allowed
 tags=qgis,plugin,query,selection
 
-homepage=https://github.com/mokrayaGISka/qgis-query-selection-plugin
+homepage=http://flexatel.ru
 category=Vector
 icon=icon.png
 # experimental flag
