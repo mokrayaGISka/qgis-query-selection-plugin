@@ -14,7 +14,7 @@ version=0.1
 author=Flexatel Team
 email=info@flexatel.ru
 
-about=Provide a brief description of the plugin and its purpose.
+about=Query Selection plugin can be used for creating layers' definition queries based on the selection inside these layers
 
 tracker=https://github.com/mokrayaGISka/qgis-query-selection-plugin/issues
 repository=https://github.com/mokrayaGISka/qgis-query-selection-plugin
