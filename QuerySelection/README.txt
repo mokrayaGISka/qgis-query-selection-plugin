@@ -4,7 +4,7 @@ Your plugin QuerySelection was created in:
     D:\Python\QGIS\Plugins\QuerySelection
 
 Your QGIS plugin directory is located at:
-    C:/Users/Elina/.qgis2/python/plugins
+    C:/Users/User/.qgis2/python/plugins
 
 What's Next:
 
