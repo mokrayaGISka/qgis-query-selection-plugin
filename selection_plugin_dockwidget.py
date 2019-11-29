@@ -3,7 +3,7 @@
 /***************************************************************************
  QuerySelectionDockWidget
                                  A QGIS plugin
- my_first_plugin
+ query_selection_plugin
                              -------------------
         begin                : 2018-03-12
         git sha              : $Format:%H$
