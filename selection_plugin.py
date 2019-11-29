@@ -30,6 +30,7 @@ import resources
 from selection_plugin_dockwidget import QuerySelectionDockWidget
 import os.path
 from qgis.gui import QgsMessageBar
+from qgis.core import QgsMapLayerRegistry
 
 
 class QuerySelection:
@@ -45,6 +46,7 @@ class QuerySelection:
         """
         # Save reference to the QGIS interface
         self.iface = iface
+        self.QgsMapLayerRegistry = QgsMapLayerRegistry
 
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
@@ -179,28 +181,29 @@ class QuerySelection:
     #--------------------------------------------------------------------------
 
     def changeLayer(self):
-        sLayerIndex = self.dockwidget.layerComboBox.currentIndex()	
-        self.sLayer = self.curLayers[sLayerIndex]	
-        print self.sLayer	
-        print self.sLayer.name()	
-        #print "change"	
+        sLayerIndex = self.dockwidget.layerComboBox.currentIndex()  
+        self.sLayer = self.curLayers[sLayerIndex]   
+        # print self.sLayer 
+        # print self.sLayer.name()  
+        #print "change"
+    
     def selectButton(self):
         #print "click"
         sF = []
         sFeatures = self.sLayer.selectedFeatures()
         if len (sFeatures)>0:
             for f in sFeatures:
-				sF.append(f.id())
+                sF.append(f.id())
         else:
             sFeatures = self.sLayer.getFeatures()
             for f in sFeatures:
-				sF.append(f.id())
+                sF.append(f.id())
         exp = str(sF).replace("[","(").replace("]",")").replace('L','')
         #print exp
-        self.sLayer.setSubsetString("fid in " + exp)	
+        self.sLayer.setSubsetString("fid in " + exp)    
 
     def Warning_Message(self):
-        #print "lalala"	
+        #print "lalala" 
         msg = self.iface.messageBar().createMessage('WARNING', 'Would you like to clear the selection?')
 
         button1 = QPushButton(msg)
@@ -211,13 +214,25 @@ class QuerySelection:
         msg.layout().addWidget(button2)
         self.iface.messageBar().pushWidget(msg, QgsMessageBar.WARNING)
 
-		
-        def Ok():		
+        
+        def Ok():       
             self.sLayer.setSubsetString('')
 
-        button1.pressed.connect(Ok)			
-        button1.pressed.connect(self.iface.messageBar().close)			
-        button2.pressed.connect(self.iface.messageBar().close)					
+        button1.pressed.connect(Ok)         
+        button1.pressed.connect(self.iface.messageBar().close)          
+        button2.pressed.connect(self.iface.messageBar().close)      
+    
+    def onLegendChange(self):
+        self.dockwidget.layerComboBox.clear()
+        lyrNames = []
+        self.curLayers = self.QgsMapLayerRegistry.instance().mapLayers().values()
+        if len(self.curLayers) > 0:
+            self.dockwidget.pushButton.setEnabled(True)
+            self.sLayer = self.curLayers[0]
+            for n in self.curLayers:
+                lyrNames.append(n.name())           
+            self.dockwidget.layerComboBox.addItems(lyrNames)
+
     def onClosePlugin(self):
         """Cleanup necessary items here when plugin dockwidget is closed"""
 
@@ -228,6 +243,8 @@ class QuerySelection:
         self.dockwidget.pushButton.clicked.disconnect(self.selectButton)
         self.dockwidget.layerComboBox.currentIndexChanged.disconnect(self.changeLayer)
         self.dockwidget.closingPlugin.disconnect(self.onClosePlugin)
+        self.QgsMapLayerRegistry.instance().legendLayersAdded.connect(self.onLegendChange)
+        self.QgsMapLayerRegistry.instance().layersRemoved.connect(self.onLegendChange)
 
         # remove this statement if dockwidget is to remain
         # for reuse if plugin is reopened
@@ -276,19 +293,20 @@ class QuerySelection:
             self.iface.addDockWidget(Qt.TopDockWidgetArea, self.dockwidget)
             self.dockwidget.show()
             #print dir(self.dockwidget)
-            self.dockwidget.layerComboBox.currentIndexChanged.connect(self.changeLayer)			
+            self.dockwidget.layerComboBox.currentIndexChanged.connect(self.changeLayer)         
             self.dockwidget.pushButton.clicked.connect(self.selectButton)
             lyrNames = []
-            self.curLayers = self.iface.legendInterface().layers()
+            self.curLayers = self.QgsMapLayerRegistry.instance().mapLayers().values()
             if len(self.curLayers) > 0:
                 self.dockwidget.pushButton.setEnabled(True)
                 self.sLayer = self.curLayers[0]
                 for n in self.curLayers:
-                    lyrNames.append(n.name())			
+                    lyrNames.append(n.name())           
                 self.dockwidget.layerComboBox.addItems(lyrNames)
             self.dockwidget.pushButton_2.clicked.connect(self.Warning_Message)
-		
+            self.QgsMapLayerRegistry.instance().legendLayersAdded.connect(self.onLegendChange)
+            self.QgsMapLayerRegistry.instance().layersRemoved.connect(self.onLegendChange)           
 
 
-			
+
 
