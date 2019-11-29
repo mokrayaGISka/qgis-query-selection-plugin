@@ -9,7 +9,7 @@
 [general]
 name=QuerySelection
 qgisMinimumVersion=2.0
-description=query_selection_plugin
+description=Query Selection plugin can be used for creating layers' definition queries based on the selection inside these layers
 version=0.3
 author=Flexatel Team
 email=info@flexatel.ru
