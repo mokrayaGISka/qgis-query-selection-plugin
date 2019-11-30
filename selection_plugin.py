@@ -181,8 +181,8 @@ class QuerySelection:
     #--------------------------------------------------------------------------
 
     def changeLayer(self):
-        sLayerIndex = self.dockwidget.layerComboBox.currentIndex()  
-        self.sLayer = self.curLayers[sLayerIndex]   
+        sLayerIndex = self.dockwidget.layerComboBox.currentIndex()
+        self.sLayer = self.curLayers[sLayerIndex]
         # print self.sLayer 
         # print self.sLayer.name()  
         #print "change"
@@ -200,7 +200,7 @@ class QuerySelection:
                 sF.append(f.id())
         exp = str(sF).replace("[","(").replace("]",")").replace('L','')
         #print exp
-        self.sLayer.setSubsetString("fid in " + exp)    
+        self.sLayer.setSubsetString("fid in " + exp)
 
     def Warning_Message(self):
         #print "lalala" 
@@ -214,13 +214,13 @@ class QuerySelection:
         msg.layout().addWidget(button2)
         self.iface.messageBar().pushWidget(msg, QgsMessageBar.WARNING)
 
-        
-        def Ok():       
+
+        def Ok():
             self.sLayer.setSubsetString('')
 
-        button1.pressed.connect(Ok)         
-        button1.pressed.connect(self.iface.messageBar().close)          
-        button2.pressed.connect(self.iface.messageBar().close)      
+        button1.pressed.connect(Ok)
+        button1.pressed.connect(self.iface.messageBar().close)
+        button2.pressed.connect(self.iface.messageBar().close)
     
     def onLegendChange(self):
         self.dockwidget.layerComboBox.clear()
@@ -230,7 +230,7 @@ class QuerySelection:
             self.dockwidget.pushButton.setEnabled(True)
             self.sLayer = self.curLayers[0]
             for n in self.curLayers:
-                lyrNames.append(n.name())           
+                lyrNames.append(n.name())
             self.dockwidget.layerComboBox.addItems(lyrNames)
 
     def onClosePlugin(self):
@@ -293,7 +293,7 @@ class QuerySelection:
             self.iface.addDockWidget(Qt.TopDockWidgetArea, self.dockwidget)
             self.dockwidget.show()
             #print dir(self.dockwidget)
-            self.dockwidget.layerComboBox.currentIndexChanged.connect(self.changeLayer)         
+            self.dockwidget.layerComboBox.currentIndexChanged.connect(self.changeLayer)
             self.dockwidget.pushButton.clicked.connect(self.selectButton)
             lyrNames = []
             self.curLayers = self.QgsMapLayerRegistry.instance().mapLayers().values()
@@ -301,11 +301,11 @@ class QuerySelection:
                 self.dockwidget.pushButton.setEnabled(True)
                 self.sLayer = self.curLayers[0]
                 for n in self.curLayers:
-                    lyrNames.append(n.name())           
+                    lyrNames.append(n.name())
                 self.dockwidget.layerComboBox.addItems(lyrNames)
             self.dockwidget.pushButton_2.clicked.connect(self.Warning_Message)
             self.QgsMapLayerRegistry.instance().legendLayersAdded.connect(self.onLegendChange)
-            self.QgsMapLayerRegistry.instance().layersRemoved.connect(self.onLegendChange)           
+            self.QgsMapLayerRegistry.instance().layersRemoved.connect(self.onLegendChange)
 
 
 
